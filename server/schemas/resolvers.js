@@ -61,6 +61,54 @@ const resolvers = {
 
       return { token, user };
     },
+
+    addPet: async (parent, args, context) => {
+      if(context.user) {
+        const pet = await Pet.create({
+          ...args,
+          username: context.user.username,
+        })
+        console.log(pet)
+        await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          { $push: {
+            pets: pet
+          } 
+          },
+          { new: true }
+        );
+
+        return pet;
+      }
+
+      throw new AuthenticationError("Not logged in");
+    },
+
+    updatePet: async (parent, { petId, petInput }, context) => {
+      if(context.user) {
+        const updatedPet = await Pet.findByIdAndUpdate(
+          { _id: petId },
+          { input: petInput },
+          { new: true }
+        )
+
+        return updatedPet
+      }
+      
+      throw new AuthenticationError('You need to be logged in!');
+    },
+
+    deletePet: async (parent, { petId} , context) => {
+      if(context.user) {
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { pets: { petId }}},
+          { new: true }
+        )
+        return updatedUser;
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
     //Note: WE only want one status per user to be created, then continuously updated
     addStatus: async (parent, args, context) => {
       if (context.user) {
