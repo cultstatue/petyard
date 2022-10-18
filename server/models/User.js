@@ -24,10 +24,12 @@ const userSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Status",
   },
-  pets: {
-    type: Schema.Types.ObjectId,
-    ref: "Pet",
-  },
+  pets: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Pet",
+    },
+  ],
 });
 
 // set up pre-save middleware to create password

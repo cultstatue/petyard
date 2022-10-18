@@ -1,5 +1,6 @@
 const { AuthenticationError } = require("apollo-server-express");
-const { User } = require("../models");
+const { User, Pet, Status } = require("../models");
+const { findById } = require("../models/User");
 const { signToken } = require("../utils/auth");
 
 const resolvers = {
@@ -14,6 +15,15 @@ const resolvers = {
       }
 
       throw new AuthenticationError("Not logged in");
+    },
+    pets: async (parent, { username }) => {
+      const params = username ? { username } : {};
+      return Pet.find(params);
+    },
+    status: async (parent, { username }) => {
+      const params = username ? { username } : {};
+      console.log(params);
+      return Status.find(params);
     },
   },
   Mutation: {
@@ -50,6 +60,64 @@ const resolvers = {
       const token = signToken(user);
 
       return { token, user };
+    },
+    //Note: WE only want one status per user to be created, then continuously updated
+    addStatus: async (parent, args, context) => {
+      if (context.user) {
+        const status = await Status.create({
+          ...args,
+          username: context.user.username,
+        });
+        console.log(status);
+        await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          { status: status._id },
+          { new: true }
+        );
+        return status;
+      }
+      throw new AuthenticationError("you need to be logged in!");
+    },
+    updateStatus: async (parent, { statusId, statusText }, context) => {
+      if (context.user) {
+        const status = await Status.findByIdAndUpdate(
+          { _id: statusId },
+          { statusText: statusText },
+          { new: true }
+        );
+        return status;
+      }
+      throw new AuthenticationError("you need to be logged in!");
+    },
+    addComment: async (parent, { statusId, commentText }, context) => {
+      if (context.user) {
+        const updatedStatus = await Status.findOneAndUpdate(
+          { _id: statusId },
+          {
+            $push: {
+              comments: { commentText, username: context.user.username },
+            },
+          },
+          { new: true }
+        );
+        return updatedStatus;
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
+    deleteComment: async (parent, { statusId, _id }, context) => {
+      if (context.user) {
+        const deletedComment = await Status.findOneAndUpdate(
+          { _id: statusId },
+          {
+            $pull: {
+              comments: { _id: _id },
+            },
+          },
+          { new: true }
+        );
+        return deletedComment;
+      }
+      throw new AuthenticationError("You need to be logged in!");
     },
   },
 };

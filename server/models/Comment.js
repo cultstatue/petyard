@@ -3,6 +3,10 @@ const dateFormat = require("../utils/dateFormat");
 
 const commentSchema = new Schema(
   {
+    statusId: {
+      type: Schema.Types.ObjectId,
+      required: true,
+    },
     commentText: {
       type: String,
       required: true,
