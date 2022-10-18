@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/cultstatue/petyard/issues"
   },
-  "homepage": "https://github.com/cultstatue/petyard#readme"
+  "homepage": "https://github.com/cultstatue/petyard#readme",
+  "dependencies": {
+    "graphql": "^16.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
 }

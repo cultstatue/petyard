@@ -16,8 +16,8 @@ const typeDefs = gql`
     praises: [Praise]
   }
   type Praise {
+    username: String
     praiseText: String
-    totalPraises: Int
   }
   type Status {
     statusText: String
@@ -35,6 +35,8 @@ const typeDefs = gql`
 
   type Query {
     user: User
+    pets(username: String): [Pet]
+    status(username: String): [Status]
   }
 
   type Mutation {

@@ -1,5 +1,6 @@
 const { AuthenticationError } = require("apollo-server-express");
-const { User } = require("../models");
+const { User, Pet, Status } = require("../models");
+const { findById } = require("../models/User");
 const { signToken } = require("../utils/auth");
 
 const resolvers = {
@@ -14,6 +15,15 @@ const resolvers = {
       }
 
       throw new AuthenticationError("Not logged in");
+    },
+    pets: async (parent, { username }) => {
+      const params = username ? { username } : {};
+      return Pet.find(params);
+    },
+    status: async (parent, { username }) => {
+      const params = username ? { username } : {};
+      console.log(params);
+      return Status.find(params);
     },
   },
   Mutation: {

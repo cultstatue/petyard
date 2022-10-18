@@ -1,12 +1,13 @@
 const { Schema } = require("mongoose");
 
 const praiseSchema = new Schema({
-  praiseText: {
+  username: {
     type: String,
     required: true,
   },
-  totalPraises: {
-    type: Number,
+  praiseText: {
+    type: String,
+    required: true,
   },
 });
 
