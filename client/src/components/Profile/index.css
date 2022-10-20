@@ -1,0 +1,40 @@
+.card {
+  width: 75%;
+  height: 100px;
+}
+.card-body {
+  color: black;
+}
+
+.house {
+  color: black;
+  display: flex;
+  flex-wrap: wrap;
+}
+.pets {
+  background-color: blanchedalmond;
+  width: 100px;
+  height: 100px;
+}
+
+.snacks {
+  background-color: rgb(138, 126, 108);
+  width: 100px;
+  height: 100px;
+}
+
+.living-room {
+  background-color: rgb(107, 152, 135);
+  width: 150px;
+  height: 150px;
+}
+.couch {
+  background-color: rgb(98, 98, 98);
+  width: 50px;
+  height: 50px;
+}
+.tv {
+  background-color: rgb(198, 195, 195);
+  width: 50px;
+  height: 50px;
+}

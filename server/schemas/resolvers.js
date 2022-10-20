@@ -5,7 +5,7 @@ const { signToken } = require("../utils/auth");
 
 const resolvers = {
   Query: {
-    user: async (parent, args, context) => {
+    me: async (parent, args, context) => {
       if (context.user) {
         const user = await User.findById(context.user._id)
           .populate("pets")
@@ -63,17 +63,18 @@ const resolvers = {
     },
 
     addPet: async (parent, args, context) => {
-      if(context.user) {
+      if (context.user) {
         const pet = await Pet.create({
           ...args,
           username: context.user.username,
-        })
-        console.log(pet)
+        });
+        console.log(pet);
         await User.findByIdAndUpdate(
           { _id: context.user._id },
-          { $push: {
-            pets: pet
-          } 
+          {
+            $push: {
+              pets: pet,
+            },
           },
           { new: true }
         );
@@ -85,32 +86,31 @@ const resolvers = {
     },
 
     updatePet: async (parent, args, context) => {
-      if(context.user) {
+      if (context.user) {
         const updatedPet = await Pet.findOneAndUpdate(
           { _id: args.petId },
-          { name: args.name ,
-            age: args.age ,
+          {
+            name: args.name,
+            age: args.age,
             gender: args.gender,
-            breed: args.breed },
+            breed: args.breed,
+          },
           { new: true }
-        )
+        );
 
-        return updatedPet
+        return updatedPet;
       }
 
-      throw new AuthenticationError('You need to be logged in!');
+      throw new AuthenticationError("You need to be logged in!");
     },
 
-    deletePet: async (parent, { petId } , context) => {
-      if(context.user) {
+    deletePet: async (parent, { petId }, context) => {
+      if (context.user) {
+        const deletedPet = await Pet.findByIdAndRemove({ _id: petId });
 
-       const deletedPet = await Pet.findByIdAndRemove(
-        { _id: petId },
-       )
-
-       return deletedPet
+        return deletedPet;
       }
-      throw new AuthenticationError('You need to be logged in!');
+      throw new AuthenticationError("You need to be logged in!");
     },
 
     //Note: WE only want one status per user to be created, then continuously updated
