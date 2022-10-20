@@ -10,6 +10,35 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 
 
+// importing Apollo
+import { setContext } from '@apollo/client/link/context';
+
+import {
+	ApolloClient,
+	InMemoryCache,
+	ApolloProvider,
+	createHttpLink,
+} from '@apollo/client';
+
+const httpLink = createHttpLink({
+	uri: '/graphql',
+  });
+  
+const authLink = setContext((_, { headers }) => {
+	const token = localStorage.getItem('id_token');
+	return {
+	  headers: {
+		...headers,
+		authorization: token ? `Bearer ${token}` : '',
+	  },
+	};
+});
+  
+const client = new ApolloClient({
+	link: authLink.concat(httpLink),
+	cache: new InMemoryCache(),
+});
+
 function App() {
 	const [currentTab, setCurrentTab] = useState("home");
 
@@ -31,6 +60,8 @@ function App() {
 		}
 	};
 	return (
+
+		<ApolloProvider client={client}>
 		<div>
 			<div className="mobile-header">
 				<Header currentTab={currentTab} setCurrentTab={setCurrentTab}></Header>
@@ -42,6 +73,7 @@ function App() {
 				<Footer></Footer>
 			</div>
 		</div>
+		</ApolloProvider>
 	);
 }
 
