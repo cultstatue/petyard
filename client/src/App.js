@@ -1,48 +1,30 @@
 import "./App.css";
-import React, { useState } from "react";
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 // Importing components here
 import Header from "./components/Header";
+import Nav from "./components/Navigation";
 import Login from "./components/Login";
 import Profile from "./components/Profile";
 import Home from "./components/Home";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 
-
 function App() {
-	const [currentTab, setCurrentTab] = useState("home");
-
-	const renderTab = () => {
-		switch (currentTab) {
-			case "home":
-				return <Home/>;
-			case "login":
-				return <Login />;
-
-    // Will add this portion later when we determine what goes in profile
-      // case "profile":
-      //   return <Profile/>;
-      
-			case "contact":
-				return <Contact/>;
-			default:
-				return null;
-		}
-	};
-	return (
-		<div>
-			<div className="mobile-header">
-				<Header currentTab={currentTab} setCurrentTab={setCurrentTab}></Header>
-			</div>
-			<div>
-				<main>{renderTab()}</main>
-			</div>
-			<div>
-				<Footer></Footer>
-			</div>
-		</div>
-	);
+  return (
+    <Router>
+      <div>
+        <Nav />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </div>
+    </Router>
+  );
 }
 
 export default App;
