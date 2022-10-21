@@ -29,7 +29,6 @@ const typeDefs = gql`
   }
   type Status {
     _id: ID
-    statusId: String
     statusText: String
     username: String
     comments: [Comment]
@@ -58,7 +57,13 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
 
     addPet(name: String!, breed: String!, age: Int, gender: String): Pet
-    updatePet(petId: ID!, name: String!, breed: String!, age: Int, gender: String): Pet
+    updatePet(
+      petId: ID!
+      name: String!
+      breed: String!
+      age: Int
+      gender: String
+    ): Pet
     deletePet(petId: ID!): User
 
     addStatus(statusText: String!): Status
