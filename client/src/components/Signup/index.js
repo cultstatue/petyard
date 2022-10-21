@@ -7,7 +7,9 @@ import { ADD_USER } from '../../utils/mutations';
 import Auth from '../../utils/auth';
 function Signup() {
 
-	const [userFormData, setUserFormData] = useState({ username: '', email: '', password: '' });
+	// const [userFormData, setUserFormData] = useState({ email: '', username: '', password: '' });
+
+	const [userFormData, setUserFormData] = useState({  username: '', email: '', password: ''})
 
 	const [validated] = useState(false);
 
@@ -15,10 +17,18 @@ function Signup() {
 
 	const [addUser, { error }] = useMutation(ADD_USER);
 
-	const handleInputChange = (event) => {
+	// const handleInputChange = (event) => {
+	// 	const { name, value } = event.target;
+	// 	setUserFormData({ ...userFormData, [name]: value });
+	// };
+
+	// console.log(userFormData)
+	function handleChange(event) {
+
 		const { name, value } = event.target;
-		setUserFormData({ ...userFormData, [name]: value });
-	};
+
+		setUserFormData({...userFormData, [name]: value,})
+	}
 
 	const formHandler = async(event) => {
 		event.preventDefault();
@@ -29,7 +39,7 @@ function Signup() {
 			event.stopPropagation();
 		}
 
-		console.log(...userFormData)
+		console.log(userFormData)
 		
 	    try {
 			const { data } = await addUser({
@@ -66,8 +76,9 @@ function Signup() {
 				<Form.Control 
 				type="email" 
 				placeholder="Email"
-				onChange={handleInputChange}
-				Value={userFormData.email}
+				name="email"
+				onChange={handleChange}
+				value={userFormData.email}
 				required
 				/>
 
@@ -79,10 +90,11 @@ function Signup() {
 					Create a username
 				</Form.Text>
 				<Form.Control 
-				type="username" 
+				type="text"
 				placeholder="Username"
-				onChange={handleInputChange}
-            	Value={userFormData.username}
+				onChange={handleChange}
+            	value={userFormData.username}
+				name="username"
 				required
 				/>
 
@@ -95,18 +107,16 @@ function Signup() {
 				</Form.Text>
 				<Form.Control 
 				type="password" 
-				placeholder="Password" 
-				onChange={handleInputChange}
-				Value={userFormData.password}
+				placeholder="Password"
+				onChange={handleChange}
+				value={userFormData.password}
+				name="password"
 				required
 				/>
 
 				<Form.Control.Feedback type='invalid'>Please enter a username!</Form.Control.Feedback>
 			</Form.Group>
-			
-			<Form.Group className="mb-3" controlId="placeholder">
-				
-			</Form.Group>
+
 			<Button 
 			disabled={!(userFormData.username && userFormData.email && userFormData.password)}
 			type='submit'
