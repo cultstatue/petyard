@@ -9,30 +9,10 @@ db.once("open", async () => {
     {
       statusText: "Feeling like buying my cat a halloween outfit",
       username: "pam",
-      comments: [
-        {
-          commentText: "I want to buy costumes too!",
-          username: "john",
-        },
-        {
-          commentText: "Cool page!",
-          username: "holty",
-        },
-      ],
     },
     {
       statusText: "My dog ate my homework",
       username: "holty",
-      comments: [
-        {
-          commentText: "I love your pet!",
-          username: "pam",
-        },
-        {
-          commentText: "You have so many pets",
-          username: "john",
-        },
-      ],
     },
   ]);
 
