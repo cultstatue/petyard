@@ -74,7 +74,7 @@ function Signup() {
 					Enter an email address
 				</Form.Text>
 				<Form.Control 
-				type="email" 
+				type="text" 
 				placeholder="Email"
 				name="email"
 				onChange={handleChange}
