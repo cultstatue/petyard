@@ -350,7 +350,10 @@ textarea {
 .padding {
   padding: 50px;
 }
-
+.player {
+  height: 50px;
+  width: 50px;
+}
 @media screen and (max-width: 980px) {
 }
 @media screen and (max-width: 817px) {

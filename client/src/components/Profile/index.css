@@ -10,6 +10,9 @@
   color: black;
   display: flex;
   flex-wrap: wrap;
+  width: 75%;
+  height: 400px;
+  align-content: center;
 }
 .pets {
   background-color: blanchedalmond;

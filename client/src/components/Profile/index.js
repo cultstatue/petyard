@@ -41,7 +41,7 @@ const Profile = () => {
           <div className="tv">TV</div>
         </div>
 
-        <button>Person</button>
+        <img className="player" src={require("../../images/female_gif.gif")} />
       </div>
       <div className="comment-section">
         <h1>Leave a comment on their page!</h1>
