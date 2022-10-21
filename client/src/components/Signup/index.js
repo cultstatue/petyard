@@ -5,7 +5,6 @@ import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../../utils/mutations";
 
 import Auth from "../../utils/auth";
-import { getDefaultValues } from "@apollo/client/utilities";
 function Signup() {
   const [userFormData, setUserFormData] = useState({
     username: "",

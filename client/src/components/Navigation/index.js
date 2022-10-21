@@ -4,6 +4,8 @@ import { Navbar, Nav, Container, Modal, Tab } from "react-bootstrap";
 
 import Login from '../Login'
 import Signup from '../Signup'
+
+import Auth from "../../utils/auth";
 function Navigation() {
 
   const [showModal, setShowModal] = useState(false);
@@ -19,21 +21,22 @@ function Navigation() {
           <Navbar.Collapse id="navbar">
             <Nav className="ml-auto">
               {/* if user is logged in show order hsitory and logout */}
-              {/* {Auth.loggedIn() ? ( */}
+              {Auth.loggedIn() ? (
               <>
                 <Nav.Link as={Link} to="/profile">
                   <p className="nav-items">Profile</p>
                 </Nav.Link>
-                {/* <Nav.Link onClick={Auth.logout}> */}
-                {/* <p className="logout">Logout</p> */}
-                {/* </Nav.Link> */}
+                <Nav.Link onClick={Auth.logout}>
+                <p className="logout">Logout</p>
+                </Nav.Link>
               </>
-              {/* ) : ( */}
+              ) : (
               <Nav.Link onClick={() => setShowModal(true)}>Login/Sign Up</Nav.Link>
+              )}
+
               <Nav.Link as={Link} to="/contact">
                 <p className="nav-items">Contact</p>
               </Nav.Link>
-              {/* )} */}
             </Nav>
           </Navbar.Collapse>
         </Container>
