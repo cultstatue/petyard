@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button, Alert } from 'react-bootstrap';
 
-function Login() {
+function Signup() {
 	return (
 
 		<Form.Group>
@@ -16,4 +16,4 @@ function Login() {
 	);
 }
 
-export default Login;
+export default Signup;
