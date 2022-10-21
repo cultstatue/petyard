@@ -19,7 +19,7 @@ function Signup() {
 		const { name, value } = event.target;
 		setUserFormData({ ...userFormData, [name]: value });
 	};
-	
+
 	const formHandler = async(event) => {
 		event.preventDefault();
 
@@ -28,6 +28,8 @@ function Signup() {
 			event.preventDefault();
 			event.stopPropagation();
 		}
+
+		console.log(...userFormData)
 		
 	    try {
 			const { data } = await addUser({
@@ -54,10 +56,10 @@ function Signup() {
 		<Form noValidate validated={validated} onSubmit={formHandler}>
 
 		<Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
-				Something went wrong!å
+				Something went wrong!
         </Alert>
 
-			<Form.Group classname="mb-3" controlId="formEmail">
+			<Form.Group className="mb-3" controlId="formEmail">
 				<Form.Text className="text">
 					Enter an email address
 				</Form.Text>
@@ -65,14 +67,14 @@ function Signup() {
 				type="email" 
 				placeholder="Email"
 				onChange={handleInputChange}
-				value={userFormData.email}
+				Value={userFormData.email}
 				required
 				/>
 
 				<Form.Control.Feedback type='invalid'>Please enter an email address!</Form.Control.Feedback>
 			</Form.Group>
 
-			<Form.Group classname="mb-3" controlId="formUsername">
+			<Form.Group className="mb-3" controlId="formUsername">
 				<Form.Text className="text">
 					Create a username
 				</Form.Text>
@@ -80,14 +82,14 @@ function Signup() {
 				type="username" 
 				placeholder="Username"
 				onChange={handleInputChange}
-            	value={userFormData.username}
+            	Value={userFormData.username}
 				required
 				/>
 
 				<Form.Control.Feedback type='invalid'>Please enter a username!</Form.Control.Feedback>
 			</Form.Group>
 
-			<Form.Group classname="mb-3" controlId="formPassword">
+			<Form.Group className="mb-3" controlId="formPassword">
 				<Form.Text className="text">
 					Create a password
 				</Form.Text>
@@ -95,7 +97,7 @@ function Signup() {
 				type="password" 
 				placeholder="Password" 
 				onChange={handleInputChange}
-				value={userFormData.password}
+				Value={userFormData.password}
 				required
 				/>
 
@@ -105,7 +107,10 @@ function Signup() {
 			<Form.Group className="mb-3" controlId="placeholder">
 				
 			</Form.Group>
-			<Button variant="primary" type="submit">
+			<Button 
+			disabled={!(userFormData.username && userFormData.email && userFormData.password)}
+			type='submit'
+			variant='success'>
 				Submit
 			</Button>
 		</Form>
