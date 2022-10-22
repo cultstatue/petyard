@@ -10,7 +10,10 @@ const typeDefs = gql`
   }
   type Pet {
     _id: ID
+    image: String
+    username: String
     name: String
+    species: String
     breed: String
     age: Int
     gender: String
@@ -46,6 +49,7 @@ const typeDefs = gql`
   type Query {
     user: User
     pets(username: String): [Pet]
+    pet(_id: ID!): Pet
     status(username: String): [Status]
   }
 

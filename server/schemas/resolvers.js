@@ -20,6 +20,10 @@ const resolvers = {
       const params = username ? { username } : {};
       return Pet.find(params);
     },
+    pet: async (parent, { _id }) => {
+      const params = _id;
+      return Pet.findById(params);
+    },
     status: async (parent, { username }) => {
       const params = username ? { username } : {};
       console.log(params);

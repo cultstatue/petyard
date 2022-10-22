@@ -23,7 +23,9 @@ db.once("open", async () => {
   const pets = await Pet.insertMany([
     {
       username: "pam",
+      image: "dog.gif",
       name: "spike",
+      species: "dog",
       breed: "bulldog",
       age: 3,
       gender: "male",
@@ -41,7 +43,9 @@ db.once("open", async () => {
     {
       username: "pam",
       name: "princess",
-      breed: "chihuahua",
+      image: "cat.gif",
+      species: "cat",
+      breed: "domestic-shorthair",
       age: 8,
       gender: "female",
       praises: [
@@ -58,6 +62,8 @@ db.once("open", async () => {
     {
       username: "holt",
       name: "benji",
+      image: "dog2.gif",
+      species: "dog",
       breed: "golden retriever",
       age: 5,
       gender: "male",
