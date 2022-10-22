@@ -1,30 +1,56 @@
 import React, { useEffect, useState } from "react";
-import { QUERY_USER, QUERY_PET, QUERY_PETS } from "../../utils/queries";
+import { Navigate, useParams } from "react-router-dom";
+import { QUERY_USER, QUERY_OTHER_USER, QUERY_PETS } from "../../utils/queries";
 import { useQuery, useMutation } from "@apollo/client";
 import { Card, Button } from "react-bootstrap";
 import Pet from "../Pet";
 import "./index.css";
 import { ADD_COMMENT, DELETE_COMMENT } from "../../utils/mutations";
+import Auth from "../../utils/auth";
 const Profile = () => {
   const [currentPet, setPet] = useState("");
+
+  // Comment initializing
   const [commentText, setComment] = useState("");
   const [addComment, { error }] = useMutation(ADD_COMMENT);
   const [deleteComment, { error: deleteError }] = useMutation(DELETE_COMMENT);
   const [commentId, getCommentId] = useState("");
-  // If we are still in the loading stage, display this to user
-  const { loading, data } = useQuery(QUERY_USER);
+
+  //getting url parameter
+  const { username: userParam } = useParams();
+
+  const { loading, data } = useQuery(
+    userParam ? QUERY_OTHER_USER : QUERY_USER,
+    {
+      variables: { username: userParam },
+    }
+  );
+
   const { loading: petLoading, data: petData } = useQuery(QUERY_PETS);
-  const user = data?.user || {};
-  // console.log(data);
-  // console.log(user);
+  const user = data?.user || data?.otherUser || {};
+  console.log(user);
   const pets = petData?.pets || {};
   const statusId = "1234";
-  // if (user.status) {
-  //   const statusId = user.status._id;
-  // }
-  // if (loading) {
-  //   return <div>Loading</div>;
-  // }
+
+  //navigate to personal profile page if username is the logged-in user's
+  if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
+    return <Navigate to="/profile" />;
+  }
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  //make sure you cant get to profile page without being logged in
+  if (!Auth.loggedIn()) {
+    return (
+      <h4>
+        You need to be logged in to see this page. Use the navigation links
+        above to sign up or log in!
+      </h4>
+    );
+  }
+
   if (petLoading) {
     return <div> loading</div>;
   }
@@ -78,10 +104,12 @@ const Profile = () => {
   return (
     <>
       {loading ? (
-        <div>Loading</div>
+        <div>Loading...</div>
       ) : (
         <>
-          <h1 className="profile-title">Welcome home {user.username}!</h1>
+          <h1 className="profile-title">
+            Welcome to {userParam ? `${user.username}'s` : "your"} home.
+          </h1>
           <div className="profile-page">
             <div className="container house">
               <div className="pets">
@@ -96,11 +124,12 @@ const Profile = () => {
                   </button>
                 ))}
               </div>
+
               <div className="char">
                 {" "}
                 <img
                   className="in-house-player"
-                  src={"/images/female_idle.png"}
+                  src={`/images/${user.profile_img}`}
                 />
               </div>
             </div>
@@ -145,36 +174,34 @@ const Profile = () => {
                 </button>
               </form>
             </div>
-            <div className="comments">
-              <h3>{user.username}'s Comments</h3>
-              {user.status.comments ? (
-                user.status.comments.map((comment, index) => (
-                  <div className="comment" key={comment._id + index.toString()}>
-                    <Card>
-                      <Card.Body>
-                        <Card.Title>{comment.commentText}</Card.Title>
-                        <Card.Text>Written by {comment.username}</Card.Text>
-                      </Card.Body>
-                      <Button variant="danger" onSubmit={handleDeleteButton}>
-                        Delete Comment
-                      </Button>
-                    </Card>
-                  </div>
-                ))
-              ) : (
-                <>There are no comments</>
-              )}
-              {/* <Card>
-            <Card.Body>
-              <Card.Title>Card Title</Card.Title>
-              <Card.Text>
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </Card.Text>
-            </Card.Body>
-          </Card> */}
-            </div>
-          </div>{" "}
+            {user.comments ? (
+              <div className="comments">
+                <h3>{user.username}'s Comments</h3>
+                {user.status.comments ? (
+                  user.status.comments.map((comment, index) => (
+                    <div
+                      className="comment"
+                      key={comment._id + index.toString()}
+                    >
+                      <Card>
+                        <Card.Body>
+                          <Card.Title>{comment.commentText}</Card.Title>
+                          <Card.Text>Written by {comment.username}</Card.Text>
+                        </Card.Body>
+                        <Button variant="danger" onSubmit={handleDeleteButton}>
+                          Delete Comment
+                        </Button>
+                      </Card>
+                    </div>
+                  ))
+                ) : (
+                  <>There are no comments</>
+                )}
+              </div>
+            ) : (
+              <div>There are no comments yet!</div>
+            )}
+          </div>
         </>
       )}
     </>

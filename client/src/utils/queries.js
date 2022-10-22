@@ -47,6 +47,40 @@ export const QUERY_ALL_USERS = gql`
     }
   }
 `;
+export const QUERY_OTHER_USER = gql`
+  query otherUser($username: String!) {
+    otherUser(username: $username) {
+      _id
+      profile_img
+      username
+      email
+      status {
+        _id
+        statusText
+        username
+        comments {
+          _id
+          commentText
+          username
+        }
+      }
+      pets {
+        _id
+        username
+        image
+        name
+        breed
+        species
+        age
+        gender
+        praises {
+          username
+          praiseText
+        }
+      }
+    }
+  }
+`;
 export const QUERY_PET = gql`
   query Pet($id: ID!) {
     pet(_id: $id) {
@@ -81,6 +115,21 @@ export const QUERY_PETS = gql`
         praiseText
       }
       _id
+    }
+  }
+`;
+
+export const QUERY_STATUS = gql`
+  query getStatus($username: String) {
+    status(username: $username) {
+      _id
+      username
+      statusText
+      comments {
+        commentText
+        username
+        _id
+      }
     }
   }
 `;

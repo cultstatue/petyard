@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
 const bcrypt = require("bcrypt");
+const Status = require("./Status");
 
 const userSchema = new Schema({
   username: {

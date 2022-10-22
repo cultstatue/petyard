@@ -50,6 +50,7 @@ const typeDefs = gql`
   type Query {
     user: User
     users: [User]
+    otherUser(username: String): User
     pets(username: String): [Pet]
     pet(_id: ID!): Pet
     status(username: String): [Status]

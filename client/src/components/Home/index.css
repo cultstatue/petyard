@@ -17,3 +17,10 @@
   color: black;
   border-radius: 5px;
 }
+.dialogue {
+  text-align: center;
+  width: 30%;
+  padding: 1%;
+  height: fit-content;
+  background-color: var(--secondary);
+}

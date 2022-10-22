@@ -48,7 +48,10 @@ function App() {
           <Nav />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile">
+              <Route path=":username" element={<Profile />} />
+              <Route path="" element={<Profile />} />
+            </Route>
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </div>

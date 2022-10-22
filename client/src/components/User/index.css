@@ -1,0 +1,9 @@
+.status {
+  border-bottom: solid 3px var(--primary);
+}
+.statusText {
+  margin-top: 5%;
+  background-color: var(--primary);
+  border-radius: 5px;
+  border: dotted 4px var(--light);
+}
