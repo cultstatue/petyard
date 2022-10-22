@@ -16,6 +16,9 @@ const resolvers = {
 
       throw new AuthenticationError("Not logged in");
     },
+    users: async () => {
+      return User.find();
+    },
     pets: async (parent, { username }) => {
       const params = username ? { username } : {};
       return Pet.find(params);

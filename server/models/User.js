@@ -9,6 +9,11 @@ const userSchema = new Schema({
     required: true,
     unique: true,
   },
+  profile_img: {
+    type: String,
+    required: true,
+    default: "female_idle.png",
+  },
   email: {
     type: String,
     required: true,

@@ -1,0 +1,19 @@
+.map {
+  background-image: url("../../../public/images/map-background.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  width: 60%;
+  height: 500px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.player-position {
+  margin: 10%;
+}
+.user-tag {
+  background-color: beige;
+  color: black;
+  border-radius: 5px;
+}

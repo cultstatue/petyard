@@ -4,6 +4,7 @@ export const QUERY_USER = gql`
   query getUser {
     user {
       _id
+      profile_img
       username
       email
       status {
@@ -11,6 +12,7 @@ export const QUERY_USER = gql`
         statusText
         username
         comments {
+          _id
           commentText
           username
         }
@@ -28,6 +30,19 @@ export const QUERY_USER = gql`
           username
           praiseText
         }
+      }
+    }
+  }
+`;
+export const QUERY_ALL_USERS = gql`
+  query getAllUsers {
+    users {
+      _id
+      profile_img
+      username
+      status {
+        _id
+        statusText
       }
     }
   }
