@@ -1,17 +1,58 @@
 import React, { useEffect, useState } from "react";
 import { QUERY_USER, QUERY_PET, QUERY_PETS } from "../../utils/queries";
 import { useQuery, useMutation } from "@apollo/client";
-import { Card } from "react-bootstrap";
+import { Card, Button } from "react-bootstrap";
 import Pet from "../Pet";
 import "./index.css";
+import { ADD_COMMENT, DELETE_COMMENT } from "../../utils/mutations";
 const Profile = () => {
   const [currentPet, setPet] = useState("");
+  const [commentText, setComment] = useState("");
+  const [addComment, { error }] = useMutation(ADD_COMMENT);
+  const [deleteComment, { error: deleteError }] = useMutation(DELETE_COMMENT);
+  const [commentId, getCommentId] = useState("");
   // If we are still in the loading stage, display this to user
   const { loading, data } = useQuery(QUERY_USER);
   const { loading: petLoading, data: petData } = useQuery(QUERY_PETS);
   const user = data?.user || {};
   // console.log(user);
   const pets = petData?.pets || {};
+  const statusId = user.status._id;
+
+  console.log(user.status._id);
+  //handle comment data
+  const handleChange = (event) => {
+    console.log("in handleChange");
+    if (event.target.value.length <= 280) {
+      setComment(event.target.value);
+    }
+  };
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      await addComment({
+        variables: { commentText, statusId },
+      });
+
+      //clear the form
+      setComment("");
+      // setCharacterCount(0);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+  const handleDeleteButton = async (event) => {
+    event.preventDefault();
+
+    // try {
+    //   await deleteComment({
+    //     variables: { commentId, statusId },
+    //   });
+    // } catch (e) {
+    //   console.error(e);
+    // }
+  };
 
   function filterPet() {
     // console.log(currentPet);
@@ -30,7 +71,7 @@ const Profile = () => {
 
   return (
     <>
-      <h1>Welcome home {user.username}</h1>
+      <h1 className="profile-title">Welcome home {user.username}!</h1>
       <div className="profile-page">
         <div className="container house">
           <div className="pets">
@@ -81,12 +122,42 @@ const Profile = () => {
         </div>
       </div>
       <div className="comment-section">
-        <h1>Leave a comment on their page!</h1>
         <div className="comment-text">
-          <input placeholder="leave a comment!"></input>
+          {" "}
+          <h1>Leave a comment on their page!</h1>
+          <form className="comment-form" onSubmit={handleFormSubmit}>
+            <textarea
+              placeholder="Say something nice..."
+              value={commentText}
+              className="form-input "
+              onChange={handleChange}
+            ></textarea>
+
+            <button className="sub-btn" type="submit">
+              Submit
+            </button>
+          </form>
         </div>
         <div className="comments">
-          <Card>
+          <h3>{user.username}'s Comments</h3>
+          {user.status.comments ? (
+            user.status.comments.map((comment, index) => (
+              <div className="comment" key={comment._id + index.toString()}>
+                <Card>
+                  <Card.Body>
+                    <Card.Title>{comment.commentText}</Card.Title>
+                    <Card.Text>Written by {comment.username}</Card.Text>
+                  </Card.Body>
+                  {/* <Button variant="danger" onSubmit={handleDeleteButton}>
+                    Delete Comment
+                  </Button> */}
+                </Card>
+              </div>
+            ))
+          ) : (
+            <>There are no comments</>
+          )}
+          {/* <Card>
             <Card.Body>
               <Card.Title>Card Title</Card.Title>
               <Card.Text>
@@ -94,25 +165,7 @@ const Profile = () => {
                 the bulk of the card's content.
               </Card.Text>
             </Card.Body>
-          </Card>
-          <Card>
-            <Card.Body>
-              <Card.Title>Card Title</Card.Title>
-              <Card.Text>
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          <Card>
-            <Card.Body>
-              <Card.Title>Card Title</Card.Title>
-              <Card.Text>
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </Card.Text>
-            </Card.Body>
-          </Card>
+          </Card> */}
         </div>
       </div>
     </>

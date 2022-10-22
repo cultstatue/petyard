@@ -6,11 +6,11 @@ main {
 
 /* Settings for root colors */
 :root {
-  --primary: #ffffff;
+  --primary: #96a7c9;
   --secondary: #274633;
   --dark: #95b893;
   --light: #ffffffcf;
-  --darker: #323cc5;
+  --darker: #123605;
   --spacing-one: calc(1rem * 0.5);
   --spacing-two: calc(1rem);
   --spacing-five: calc(2.5rem);

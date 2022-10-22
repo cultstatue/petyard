@@ -7,6 +7,7 @@ export const QUERY_USER = gql`
       username
       email
       status {
+        _id
         statusText
         username
         comments {

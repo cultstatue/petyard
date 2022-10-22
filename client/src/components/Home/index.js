@@ -7,7 +7,7 @@ const Home = () => {
   const { loading, data } = useQuery(QUERY_USER);
   const user = data?.user || {};
 
-  console.log(user.username);
+  // console.log(user.username);
   return <>hello{user.username}</>;
 };
 
