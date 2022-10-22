@@ -52,7 +52,7 @@ const Profile = () => {
             {" "}
             <img
               className="in-house-player"
-              src={require("../../images/female_gif.gif")}
+              src={require("../../images/female_idle.png")}
             />
           </div>
         </div>
