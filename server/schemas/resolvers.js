@@ -16,6 +16,9 @@ const resolvers = {
 
       throw new AuthenticationError("Not logged in");
     },
+    users: async (parent, args) => {
+      return User.find().select("-__v -password").populate("status");
+    },
     pets: async (parent, { username }) => {
       const params = username ? { username } : {};
       return Pet.find(params);

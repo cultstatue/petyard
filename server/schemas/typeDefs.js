@@ -6,6 +6,7 @@ const typeDefs = gql`
     username: String
     email: String
     status: Status
+    profile_pic: String
     pets: [Pet]
   }
   type Pet {
@@ -48,6 +49,7 @@ const typeDefs = gql`
 
   type Query {
     user: User
+    users: [User]
     pets(username: String): [Pet]
     pet(_id: ID!): Pet
     status(username: String): [Status]
