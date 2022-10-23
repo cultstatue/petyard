@@ -3,6 +3,7 @@ const { gql } = require("apollo-server-express");
 const typeDefs = gql`
   type User {
     _id: ID
+    profile_img: String
     username: String
     email: String
     status: Status
@@ -10,7 +11,10 @@ const typeDefs = gql`
   }
   type Pet {
     _id: ID
+    image: String
+    username: String
     name: String
+    species: String
     breed: String
     age: Int
     gender: String
@@ -45,7 +49,10 @@ const typeDefs = gql`
 
   type Query {
     user: User
+    users: [User]
+    otherUser(username: String): User
     pets(username: String): [Pet]
+    pet(_id: ID!): Pet
     status(username: String): [Status]
   }
 
@@ -67,7 +74,7 @@ const typeDefs = gql`
     deletePet(petId: ID!): User
 
     addStatus(statusText: String!): Status
-    updateStatus(statusId: String!, statusText: String!): Status
+    updateStatus(statusText: String!): Status
     addComment(statusId: ID!, commentText: String!): Status
     deleteComment(statusId: ID!, _id: ID!): Status
   }

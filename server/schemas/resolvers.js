@@ -1,6 +1,6 @@
 const { AuthenticationError } = require("apollo-server-express");
 const { User, Pet, Status } = require("../models");
-const { findById } = require("../models/User");
+
 const { signToken } = require("../utils/auth");
 
 const resolvers = {
@@ -16,9 +16,22 @@ const resolvers = {
 
       throw new AuthenticationError("Not logged in");
     },
+    users: async () => {
+      return User.find().populate("status");
+    },
+    otherUser: async (parent, { username }) => {
+      return User.findOne({ username })
+        .select("-__v -password")
+        .populate("pets")
+        .populate("status");
+    },
     pets: async (parent, { username }) => {
       const params = username ? { username } : {};
       return Pet.find(params);
+    },
+    pet: async (parent, { _id }) => {
+      const params = _id;
+      return Pet.findById(params);
     },
     status: async (parent, { username }) => {
       const params = username ? { username } : {};
@@ -130,8 +143,10 @@ const resolvers = {
       }
       throw new AuthenticationError("you need to be logged in!");
     },
-    updateStatus: async (parent, { statusId, statusText }, context) => {
+    updateStatus: async (parent, { statusText }, context) => {
+      console.log(context);
       if (context.user) {
+        console.log(context.status);
         const status = await Status.findByIdAndUpdate(
           { _id: statusId },
           { statusText: statusText },

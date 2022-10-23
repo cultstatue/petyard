@@ -2,12 +2,18 @@ const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
 const bcrypt = require("bcrypt");
+const Status = require("./Status");
 
 const userSchema = new Schema({
   username: {
     type: String,
     required: true,
     unique: true,
+  },
+  profile_img: {
+    type: String,
+    required: true,
+    default: "female_idle.png",
   },
   email: {
     type: String,

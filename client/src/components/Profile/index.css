@@ -1,0 +1,120 @@
+.profile-title {
+  text-align: center;
+  background-color: var(--primary);
+  border: solid 5px var(--secondary);
+  width: 75%;
+  margin-bottom: 5px;
+}
+.card {
+  width: 75%;
+  height: 100px;
+}
+.card-body {
+  color: black;
+}
+
+.house {
+  background-image: url("../../../public/images/house-halloween.png");
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: solid 5px var(--secondary);
+  color: black;
+  display: flex;
+  flex-wrap: wrap;
+  width: 60%;
+  height: 400px;
+  align-content: center;
+  border-radius: 15px;
+  border-right: none;
+}
+.char {
+  margin-top: 40%;
+  margin-left: 50%;
+}
+.in-house-player {
+  height: 60px;
+  width: 60px;
+  border-radius: 10px;
+}
+.pets {
+  margin-top: 40%;
+  display: flex;
+}
+
+.snacks {
+  background-color: rgb(138, 126, 108);
+  width: 100px;
+  height: 100px;
+}
+
+.living-room {
+  background-color: rgb(107, 152, 135);
+  width: 150px;
+  height: 150px;
+}
+.couch {
+  background-color: rgb(98, 98, 98);
+  width: 50px;
+  height: 50px;
+}
+.tv {
+  background-color: rgb(198, 195, 195);
+  width: 50px;
+  height: 50px;
+}
+.pet-info {
+  color: var(--dark);
+  text-align: center;
+  width: 40%;
+  background-color: var(--light);
+  border-radius: 15px;
+  border: solid 5px var(--secondary);
+  border-left: none;
+}
+.pet {
+  color: var(--light);
+  width: 50px;
+  border-radius: 10px;
+}
+.profile-page {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.comment-section {
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.comment-text {
+  display: flex;
+  flex-direction: column;
+}
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.form-input {
+  width: 100%;
+  border: 4px solid var(--secondary);
+  border-radius: 15px;
+}
+.sub-btn {
+  background-color: rgb(82, 114, 82);
+  color: var(--light);
+}
+.comments {
+  text-align: center;
+  width: 56%;
+}
+.comments h3 {
+  color: var(--secondary);
+}
+.comment .card {
+  width: 100%;
+  margin: 5px;
+}

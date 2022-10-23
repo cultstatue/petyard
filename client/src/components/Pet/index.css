@@ -1,0 +1,10 @@
+.praises {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.praise {
+  background-color: var(--secondary);
+  width: 75%;
+  border-radius: 15px;
+}
