@@ -143,8 +143,10 @@ const resolvers = {
       }
       throw new AuthenticationError("you need to be logged in!");
     },
-    updateStatus: async (parent, { statusId, statusText }, context) => {
+    updateStatus: async (parent, { statusText }, context) => {
+      console.log(context);
       if (context.user) {
+        console.log(context.status);
         const status = await Status.findByIdAndUpdate(
           { _id: statusId },
           { statusText: statusText },

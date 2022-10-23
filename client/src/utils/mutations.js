@@ -52,3 +52,12 @@ export const DELETE_COMMENT = gql`
     }
   }
 `;
+
+export const UPDATE_STATUS = gql`
+  mutation UpdateStatus($statusText: String!) {
+    updateStatus(statusText: $statusText) {
+      _id
+      statusText
+    }
+  }
+`;

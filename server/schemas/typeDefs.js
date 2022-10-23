@@ -74,7 +74,7 @@ const typeDefs = gql`
     deletePet(petId: ID!): User
 
     addStatus(statusText: String!): Status
-    updateStatus(statusId: String!, statusText: String!): Status
+    updateStatus(statusText: String!): Status
     addComment(statusId: ID!, commentText: String!): Status
     deleteComment(statusId: ID!, _id: ID!): Status
   }

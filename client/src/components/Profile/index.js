@@ -28,9 +28,9 @@ const Profile = () => {
 
   const { loading: petLoading, data: petData } = useQuery(QUERY_PETS);
   const user = data?.user || data?.otherUser || {};
-  console.log(user);
+  console.log(user.status);
   const pets = petData?.pets || {};
-  const statusId = "1234";
+  const statusId = user?.status?._id || "1234";
 
   //navigate to personal profile page if username is the logged-in user's
   if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
@@ -158,23 +158,31 @@ const Profile = () => {
             </div>
           </div>
           <div className="comment-section">
-            <div className="comment-text">
-              {" "}
-              <h1>Leave a comment on their page!</h1>
-              <form className="comment-form" onSubmit={handleFormSubmit}>
-                <textarea
-                  placeholder="Say something nice..."
-                  value={commentText}
-                  className="form-input "
-                  onChange={handleChange}
-                ></textarea>
+            {user.status ? (
+              <>
+                <div className="comment-text">
+                  <h1>Leave a comment on their page!</h1>
+                  <form className="comment-form" onSubmit={handleFormSubmit}>
+                    <textarea
+                      placeholder="Say something nice..."
+                      value={commentText}
+                      className="form-input "
+                      onChange={handleChange}
+                    ></textarea>
 
-                <button className="sub-btn" type="submit">
-                  Submit
-                </button>
-              </form>
-            </div>
-            {user.comments ? (
+                    <button className="sub-btn" type="submit">
+                      Submit
+                    </button>
+                  </form>
+                </div>
+              </>
+            ) : (
+              <>
+                <div>Loading Status</div>
+              </>
+            )}
+
+            {user ? (
               <div className="comments">
                 <h3>{user.username}'s Comments</h3>
                 {user.status.comments ? (
@@ -188,9 +196,9 @@ const Profile = () => {
                           <Card.Title>{comment.commentText}</Card.Title>
                           <Card.Text>Written by {comment.username}</Card.Text>
                         </Card.Body>
-                        <Button variant="danger" onSubmit={handleDeleteButton}>
+                        {/* <Button variant="danger" onSubmit={handleDeleteButton}>
                           Delete Comment
-                        </Button>
+                        </Button> */}
                       </Card>
                     </div>
                   ))
