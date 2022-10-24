@@ -76,12 +76,14 @@ const resolvers = {
     },
 
     addPet: async (parent, args, context) => {
+      console.log("in addPet mutation");
       if (context.user) {
         const pet = await Pet.create({
           ...args,
           username: context.user.username,
         });
-        console.log(pet);
+        console.log("pet created : " + pet);
+        console.log("attempting to update user...");
         await User.findByIdAndUpdate(
           { _id: context.user._id },
           {
@@ -91,7 +93,7 @@ const resolvers = {
           },
           { new: true }
         );
-
+        console.log("user should be updated");
         return pet;
       }
 
