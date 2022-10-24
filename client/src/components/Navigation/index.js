@@ -20,12 +20,17 @@ function Navigation() {
           <Navbar.Toggle aria-controls="navbar" />
           <Navbar.Collapse id="navbar">
             <Nav className="ml-auto">
-              {/* if user is logged in show order hsitory and logout */}
+              {/* if user is logged in show profile, log out and add a pet */}
               {Auth.loggedIn() ? (
               <>
                 <Nav.Link as={Link} to="/profile">
                   <p className="nav-items">Profile</p>
                 </Nav.Link>
+                
+                <Nav.Link as={Link} to="/addpet">
+                <p className="nav-items">Add a Pet</p>
+                </Nav.Link>
+
                 <Nav.Link onClick={Auth.logout}>
                 <p className="logout">Logout</p>
                 </Nav.Link>

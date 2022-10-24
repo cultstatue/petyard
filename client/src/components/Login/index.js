@@ -73,7 +73,7 @@ function Login() {
 		<Form.Text className="text">Enter your password</Form.Text>
 			<Form.Control
 			name="password"
-			type='text'
+			type='password'
 			placeholder='your password'
 			onChange={handleInputChange}
             value={userFormData.password}

@@ -18,6 +18,7 @@ import Nav from "./components/Navigation";
 import Profile from "./components/Profile";
 import Home from "./components/Home";
 import Contact from "./components/Contact";
+import CreatePet from "./components/CreatePet";
 import Footer from "./components/Footer";
 
 const httpLink = createHttpLink({
@@ -52,6 +53,7 @@ function App() {
               <Route path=":username" element={<Profile />} />
               <Route path="" element={<Profile />} />
             </Route>
+            <Route path="/addpet" element={<CreatePet />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </div>
