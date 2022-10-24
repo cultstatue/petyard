@@ -4,17 +4,24 @@ import { useMutation, useQuery } from "@apollo/client";
 import { QUERY_ALL_USERS, QUERY_USER } from "../../utils/queries";
 import User from "../User";
 import "./index.css";
-import Auth from "../../utils/auth";
-import { UPDATE_STATUS } from "../../utils/mutations";
+// import Auth from "../../utils/auth";
+import { UPDATE_STATUS, ADD_STATUS } from "../../utils/mutations";
 const Home = () => {
   //get user data for statusID
   const { loading: userLoading, data: userData } = useQuery(QUERY_USER);
   const me = userData?.user || {};
 
-  const statusId = "1234";
+  const statusId = me?.status?._id || "1234";
+
   //update status
   const [statusText, setStatus] = useState("");
   const [updateStatus, { error }] = useMutation(UPDATE_STATUS);
+  const [addStatus, { error: addStatusError }] = useMutation(ADD_STATUS);
+  // toggleStatus
+  const [currentUser, setCurrentUser] = useState("");
+  // console.log(currentUser);
+  const { loading, data } = useQuery(QUERY_ALL_USERS);
+  const users = data?.users || {};
 
   //handle Status data
   const handleChange = (event) => {
@@ -24,27 +31,37 @@ const Home = () => {
     }
   };
   const handleFormSubmit = async (event) => {
+    // console.log("in handleFormSubmit");
     event.preventDefault();
     if (data) {
-      try {
-        await updateStatus({
-          variables: { statusId, statusText },
-        });
+      // console.log(statusId);
+      if (me.status) {
+        try {
+          await updateStatus({
+            variables: { statusText, statusId },
+          });
 
-        //clear the form
-        setStatus("");
-        // setCharacterCount(0);
-      } catch (e) {
-        console.error(e);
+          //clear the form
+          setStatus("");
+          // setCharacterCount(0);
+        } catch (e) {
+          console.error(e);
+        }
+      } else {
+        try {
+          await addStatus({
+            variables: { statusText },
+          });
+
+          //clear the form
+          setStatus("");
+          // setCharacterCount(0);
+        } catch (e) {
+          console.error(e);
+        }
       }
     }
   };
-
-  // toggleStatus
-  const [currentUser, setCurrentUser] = useState("");
-  // console.log(currentUser);
-  const { loading, data } = useQuery(QUERY_ALL_USERS);
-  const users = data?.users || {};
 
   function filterUser() {
     if (!currentUser) {
@@ -64,10 +81,10 @@ const Home = () => {
       {" "}
       <div className="status-section">
         <h1>What's your status?</h1>
-
+        {!me.status && <p>Add your first status!</p>}
         <form className="comment-form" onSubmit={handleFormSubmit}>
           <textarea
-            placeholder="Say something nice..."
+            placeholder="What's up with you today?..."
             className="form-input "
             value={statusText}
             onChange={handleChange}
@@ -81,19 +98,18 @@ const Home = () => {
       <div className="map">
         {users.map((user, index) => (
           <div className="player-position" key={user._id + index.toString()}>
-            <Link to={`/profile/${user.username}`}>
-              <button
-                onClick={() => {
-                  setCurrentUser(user.username);
-                }}
-              >
-                <p className="user-tag">{user.username}</p>
-                <img
-                  className="player"
-                  src={`/images/${user.profile_img}`}
-                ></img>
-              </button>{" "}
-            </Link>
+            <button
+              onClick={() => {
+                setCurrentUser(user.username);
+              }}
+            >
+              <p className="user-tag">{user.username}</p>
+              <img
+                className="player"
+                src={`/images/${user.profile_img}`}
+                alt="player-profile-pic"
+              ></img>
+            </button>{" "}
           </div>
         ))}
       </div>
@@ -102,12 +118,24 @@ const Home = () => {
           <>
             {filterUser().map((user) => (
               <>
-                <User
-                  key={user._id}
-                  _id={user._id}
-                  statusText={user.status.statusText}
-                  username={user.username}
-                />
+                {user.status ? (
+                  <>
+                    {" "}
+                    <User
+                      key={user._id}
+                      _id={user._id}
+                      statusText={user.status.statusText}
+                      username={user.username}
+                    />
+                    <Link to={`/profile/${user.username}`}>
+                      View this persons profile!
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <div>This user has not written a status yet...</div>
+                  </>
+                )}
               </>
             ))}
           </>

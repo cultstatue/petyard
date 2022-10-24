@@ -143,7 +143,7 @@ const resolvers = {
       }
       throw new AuthenticationError("you need to be logged in!");
     },
-    updateStatus: async (parent, { statusText }, context) => {
+    updateStatus: async (parent, { statusId, statusText }, context) => {
       console.log(context);
       if (context.user) {
         console.log(context.status);
