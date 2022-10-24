@@ -62,6 +62,7 @@ const Profile = () => {
       setComment(event.target.value);
     }
   };
+
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     if (data) {
@@ -182,7 +183,7 @@ const Profile = () => {
               </>
             )}
 
-            {user ? (
+            {user.comments ? (
               <div className="comments">
                 <h3>{user.username}'s Comments</h3>
                 {user.status.comments ? (
