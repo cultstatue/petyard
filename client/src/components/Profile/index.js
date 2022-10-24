@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { QUERY_USER, QUERY_OTHER_USER, QUERY_PETS } from "../../utils/queries";
 import { useQuery, useMutation } from "@apollo/client";
@@ -28,7 +28,7 @@ const Profile = () => {
 
   const { loading: petLoading, data: petData } = useQuery(QUERY_PETS);
   const user = data?.user || data?.otherUser || {};
-  console.log(user.status);
+  // console.log(user.status);
   const pets = petData?.pets || {};
   const statusId = user?.status?._id || "1234";
 
@@ -121,7 +121,11 @@ const Profile = () => {
                       setPet(pet._id);
                     }}
                   >
-                    <img className="pet" src={`/images/${pet.image}`}></img>
+                    <img
+                      className="pet"
+                      src={`/images/${pet.image}`}
+                      alt="animal profile image"
+                    ></img>
                   </button>
                 ))}
               </div>
