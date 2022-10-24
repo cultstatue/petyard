@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Form, Button, Col, Row } from 'react-bootstrap';
 
+import { useMutation } from "@apollo/client";
+import { ADD_PET } from "../../utils/mutations";
+
 function CreatePet() {
 
     const [petFormData, setPetFormData] = useState({
@@ -14,9 +17,7 @@ function CreatePet() {
 
     const [validated, setValidated] = useState(false);
 
-    // const petImageForm = document.querySelector('input[type="radio"]:checked').value;
-
-    // console.log(petImageForm)
+    const [addPet, { error }] = useMutation(ADD_PET)
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -29,6 +30,32 @@ function CreatePet() {
     const formHandler = async(event) => {
         console.log(petFormData);
         event.preventDefault();
+
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+
+        try {
+            const { data } = await addPet({
+                variables: { ...petFormData }
+            })
+
+            console.log(data)
+        }
+        catch (error) {
+            console.error(error);
+        }
+
+        setPetFormData({
+            name: "",
+            gender: "Male",
+            age: "",
+            species:"Dog",
+            breed:"",
+            image:"cat.gif"
+        })
     }
 
     return (

@@ -61,3 +61,17 @@ export const UPDATE_STATUS = gql`
     }
   }
 `;
+
+export const ADD_PET = gql `
+mutation addPet($name: String!, $breed: String!, $age: Int, $gender: String, $image: String!, $species: String!) {
+  addPet(name: $name, breed: $breed, age: $age, gender: $gender, image: $image, species: $species) {
+    _id
+    name
+    breed
+    age
+    gender
+    image
+    species
+  }
+}
+`
