@@ -127,6 +127,9 @@ const Home = () => {
                       statusText={user.status.statusText}
                       username={user.username}
                     />
+                    <Link to={`/profile/${user.username}`}>
+                      View this persons profile!
+                    </Link>
                   </>
                 ) : (
                   <>

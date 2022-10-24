@@ -1,13 +1,17 @@
 .map {
   background-image: url("../../../public/images/map-background.png");
-  background-repeat: no-repeat;
   background-position: center;
-  background-size: cover;
+  border: solid 2px var(--secondary);
+  border-radius: 5px;
   width: 60%;
-  height: 500px;
+  min-height: 500px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  margin: 10px;
+}
+.status-section {
+  margin: 5px;
 }
 .player-position {
   margin: 10%;
@@ -23,4 +27,9 @@
   padding: 1%;
   height: fit-content;
   background-color: var(--secondary);
+  margin: 5px;
+  border-radius: 5px;
+}
+.homepage {
+  justify-content: space-evenly;
 }

@@ -94,10 +94,54 @@ db.once("open", async () => {
 
   await User.create({
     username: "holty",
+    profile_img: "GnollBrute_Idle_1.png",
     email: "eholt@testmail.com",
     password: "password12345",
     status: status[1],
     pets: [pets[2]._id],
+  });
+  await User.create({
+    username: "user3",
+    email: "user3@mail.com",
+    password: "password12345",
+  });
+  await User.create({
+    username: "user4",
+    profile_img: "GnollBrute_Idle_1.png",
+    email: "user4@mail.com",
+    password: "password12345",
+  });
+  await User.create({
+    username: "user5",
+    email: "user5@mail.com",
+    password: "password12345",
+  });
+  await User.create({
+    username: "user6",
+    email: "user6@mail.com",
+    password: "password12345",
+  });
+  await User.create({
+    username: "user7",
+    profile_img: "GnollBrute_Idle_1.png",
+    email: "user7@mail.com",
+    password: "password12345",
+  });
+  await User.create({
+    username: "user8",
+    email: "user8@mail.com",
+    password: "password12345",
+  });
+  await User.create({
+    username: "user9",
+    profile_img: "GnollBrute_Idle_1.png",
+    email: "user9@mail.com",
+    password: "password12345",
+  });
+  await User.create({
+    username: "user10",
+    email: "user10@mail.com",
+    password: "password12345",
   });
   await User.create({
     username: "johnny",
