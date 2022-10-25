@@ -56,6 +56,7 @@ function App() {
             <Route path="/addpet" element={<CreatePet />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
+          <Footer />
         </div>
       </Router>
     </ApolloProvider>

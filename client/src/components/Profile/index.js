@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { QUERY_USER, QUERY_OTHER_USER, QUERY_PETS } from "../../utils/queries";
 import { useQuery, useMutation } from "@apollo/client";
@@ -10,6 +10,7 @@ import Auth from "../../utils/auth";
 const Profile = () => {
   const [currentPet, setPet] = useState("");
   const [addPraise, { error: praiseError }] = useMutation(ADD_PRAISE);
+  const [numPraise, setNumPraise] = useState(null);
 
   // Comment initializing
   const [commentText, setComment] = useState("");
@@ -20,7 +21,7 @@ const Profile = () => {
   //getting url parameter
   const { username: userParam } = useParams();
 
-  const { loading, data } = useQuery(
+  const { loading, data, refetch } = useQuery(
     userParam ? QUERY_OTHER_USER : QUERY_USER,
     {
       variables: { username: userParam },
@@ -28,7 +29,8 @@ const Profile = () => {
   );
 
   const { loading: petLoading, data: petData } = useQuery(QUERY_PETS);
-  const user = data?.user || data?.otherUser || {};
+  const [user, setUser] = useState(data?.user || data?.otherUser || {});
+  // const user = data?.user || data?.otherUser || {};
   // console.log(user.status);
   const pets = petData?.pets || {};
   const statusId = user?.status?._id || "1234";
@@ -64,6 +66,10 @@ const Profile = () => {
       await addPraise({
         variables: { petId: currentPet },
       });
+      await refetch(userParam ? QUERY_OTHER_USER : QUERY_USER, {
+        variables: { username: userParam },
+      });
+      setUser(data?.user || data?.otherUser || {});
     } catch (e) {
       console.error(e);
     }
@@ -116,6 +122,10 @@ const Profile = () => {
     // console.log(finalPet);
     return finalPet;
   }
+
+  // useEffect(() => {
+  //   const response = useQuery(QUERY_USER);
+  // });
 
   return (
     <>
