@@ -4,7 +4,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { QUERY_ALL_USERS, QUERY_USER } from "../../utils/queries";
 import User from "../User";
 import "./index.css";
-// import Auth from "../../utils/auth";
+import Auth from "../../utils/auth";
 import { UPDATE_STATUS, ADD_STATUS } from "../../utils/mutations";
 const Home = () => {
   //get user data for statusID
@@ -80,6 +80,7 @@ const Home = () => {
   return (
     <div className="flex-row homepage">
       {" "}
+      {Auth.loggedIn() ? (
       <div className="status-section">
         <h1>What's your status?</h1>
         {!me.status && <p>Add your first status!</p>}
@@ -96,6 +97,10 @@ const Home = () => {
           </button>
         </form>
       </div>
+      ) : ( 
+        <div className="status-section">
+        </div>
+       )}
       <div className="map">
         {users.map((user, index) => (
           <div className="player-position" key={user._id + index.toString()}>
