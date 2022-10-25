@@ -10,6 +10,7 @@ function Signup() {
     username: "",
     email: "",
     password: "",
+    profile_img: "",
   });
 
   const [showAlert, setShowAlert] = useState(false);
@@ -35,7 +36,7 @@ function Signup() {
       event.stopPropagation();
     }
 
-    console.log("user form data " + userFormData.email);
+    console.log("user form data ", userFormData);
 
     try {
       const { data } = await addUser({
@@ -114,6 +115,36 @@ function Signup() {
           Please enter a username!
         </Form.Control.Feedback>
       </Form.Group>
+      <Form.Group className="mb-3" controlId="formProfileImage">
+        <Form.Text>Choose your profile picture!</Form.Text>
+
+        <div
+          onChange={handleInputChange}
+          defaultValue={userFormData.profile_img}
+        >
+          <input type="radio" value="female_idle.png" name="profile_img" />
+          <img className="profile-pic" src={`/images/female_idle.png`}></img>
+
+          <input
+            type="radio"
+            value="GnollBrute_idle_1.png"
+            name="profile_img"
+          />
+          <img
+            className="profile-pic"
+            src={`/images/GnollBrute_idle_1.png`}
+          ></img>
+
+          {/* <input type="radio" value="dog.gif" name="image" />
+                <img className="pet" src={`/images/dog.gif`}></img>
+
+                <input type="radio" value="dog2.gif" name="image" />
+                <img className="pet" src={`/images/dog2.gif`}></img>
+
+                <input type="radio" value="dog3.gif" name="image" />
+                <img className="pet" src={`/images/dog3.gif`}></img> */}
+        </div>
+      </Form.Group>
 
       <Form.Group className="mb-3" controlId="placeholder"></Form.Group>
       <Button
@@ -121,7 +152,8 @@ function Signup() {
           !(
             userFormData.username &&
             userFormData.email &&
-            userFormData.password
+            userFormData.password &&
+            userFormData.profile_img
           )
         }
         type="submit"

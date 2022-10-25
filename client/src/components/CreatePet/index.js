@@ -62,6 +62,7 @@ function CreatePet() {
       breed: "",
       image: "cat.gif",
     });
+    window.location.replace("/profile");
   };
 
   return (

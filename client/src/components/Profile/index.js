@@ -157,7 +157,15 @@ const Profile = () => {
                 </>
               ) : (
                 <>
-                  <h1>Click a pet to learn about them!</h1>
+                  {user.pets != 0 ? (
+                    <>
+                      <h1>Click a pet to learn about them!</h1>
+                    </>
+                  ) : (
+                    <>
+                      <h1>No pets in this home...</h1>
+                    </>
+                  )}
                 </>
               )}
             </div>
@@ -183,11 +191,11 @@ const Profile = () => {
               </>
             ) : (
               <>
-                <div>Loading Status</div>
+                <div>No status yet!</div>
               </>
             )}
 
-            {user.comments ? (
+            {user.status.comments != 0 ? (
               <div className="comments">
                 <h3>{user.username}'s Comments</h3>
                 {user.status.comments ? (
