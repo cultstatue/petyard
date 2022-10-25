@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 import { useMutation, useQuery } from "@apollo/client";
 import { QUERY_ALL_USERS, QUERY_USER } from "../../utils/queries";
 import User from "../User";
@@ -55,6 +55,7 @@ const Home = () => {
 
           //clear the form
           setStatus("");
+          window.location.replace("/");
           // setCharacterCount(0);
         } catch (e) {
           console.error(e);
