@@ -188,6 +188,17 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
+    addPraise: async (parent, { petId }, context) => {
+      if (context.user) {
+        console.log("user found, attempting to add praise");
+        const praise = await Pet.findOneAndUpdate(
+          { _id: petId },
+          { $push: { praises: { username: context.user.username } } },
+          { new: true }
+        );
+        console.log("added praise: " + praise);
+      }
+    },
   },
 };
 

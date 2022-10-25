@@ -5,10 +5,11 @@ import { useQuery, useMutation } from "@apollo/client";
 import { Card, Button } from "react-bootstrap";
 import Pet from "../Pet";
 import "./index.css";
-import { ADD_COMMENT, DELETE_COMMENT } from "../../utils/mutations";
+import { ADD_COMMENT, DELETE_COMMENT, ADD_PRAISE } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 const Profile = () => {
   const [currentPet, setPet] = useState("");
+  const [addPraise, { error: praiseError }] = useMutation(ADD_PRAISE);
 
   // Comment initializing
   const [commentText, setComment] = useState("");
@@ -54,6 +55,20 @@ const Profile = () => {
   if (petLoading) {
     return <div> loading</div>;
   }
+
+  const handleTreatSubmit = async (event) => {
+    console.log("in handleSubmit");
+    event.preventDefault();
+    console.log("trying to add praise");
+    try {
+      await addPraise({
+        variables: { petId: currentPet },
+      });
+    } catch (e) {
+      console.error(e);
+    }
+    console.log("done");
+  };
   // console.log(user.status._id);
   //handle comment data
   const handleChange = (event) => {
@@ -108,10 +123,12 @@ const Profile = () => {
         <div>Loading...</div>
       ) : (
         <>
-          <h1 className="profile-title">
-            Welcome to {userParam ? `${user.username}'s` : "your"} home.
-          </h1>
+          {" "}
           <div className="profile-page">
+            <h1 className="profile-title">
+              Welcome to {userParam ? `${user.username}'s` : "your"} home.
+            </h1>
+
             <div className="container house">
               <div className="pets">
                 {user.pets.map((pet, index) => (
@@ -154,6 +171,9 @@ const Profile = () => {
                       praises={pet.praises}
                     />
                   ))}
+                  <button id="treat-btn" onClick={handleTreatSubmit}>
+                    Give Treat!
+                  </button>
                 </>
               ) : (
                 <>
@@ -220,7 +240,7 @@ const Profile = () => {
                 )}
               </div>
             ) : (
-              <div>There are no comments yet!</div>
+              <div className="no-content">There are no comments yet...</div>
             )}
           </div>
         </>

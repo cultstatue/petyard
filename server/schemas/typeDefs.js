@@ -89,6 +89,7 @@ const typeDefs = gql`
     updateStatus(statusId: ID!, statusText: String!): Status
     addComment(statusId: ID!, commentText: String!): Status
     deleteComment(statusId: ID!, _id: ID!): Status
+    addPraise(petId: ID!): Pet
   }
 `;
 

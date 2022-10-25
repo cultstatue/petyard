@@ -5,6 +5,11 @@
   width: 75%;
   margin-bottom: 5px;
 }
+.profile-page {
+  padding: 10px;
+  /* max-width: 1600px; */
+  /* align-content: center; */
+}
 .card {
   width: 75%;
   height: 100px;
@@ -15,7 +20,7 @@
 
 .house {
   background-image: url("../../../public/images/house-halloween.png");
-  background-size: 100%;
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   border: solid 5px var(--secondary);
@@ -23,14 +28,16 @@
   display: flex;
   flex-wrap: wrap;
   width: 60%;
-  height: 400px;
+  min-height: 400px;
   align-content: center;
   border-radius: 15px;
   border-right: none;
+  /* margin: 5px; */
 }
 .char {
-  margin-top: 40%;
-  margin-left: 50%;
+  margin-top: 50%;
+  margin-left: 37%;
+  margin-bottom: 20px;
 }
 .in-house-player {
   height: 60px;
@@ -38,8 +45,11 @@
   border-radius: 10px;
 }
 .pets {
-  margin-top: 40%;
+  margin-top: 400px;
+  max-width: 40%;
+  max-height: 400px;
   display: flex;
+  flex-wrap: wrap;
 }
 
 .snacks {
@@ -86,7 +96,7 @@
   margin-top: 15px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 .comment-text {
   display: flex;
@@ -117,4 +127,48 @@
 .comment .card {
   width: 100%;
   margin: 5px;
+}
+
+/* media queries */
+@media screen and (max-width: 1100px) {
+  .house {
+    background-size: cover;
+    width: 100%;
+  }
+}
+@media screen and (max-width: 850px) {
+  .profile-page {
+    flex-direction: column;
+    align-items: center;
+  }
+  .pet-info {
+    width: 100%;
+    border: solid 5px var(--secondary);
+  }
+  .house {
+    width: 100%;
+    background-size: cover;
+  }
+}
+@media screen and (max-width: 500px) {
+  .pets {
+    margin-top: 90px;
+  }
+
+  .pet {
+    width: 30px;
+    height: 30px;
+  }
+  .house {
+    min-width: none;
+    width: 100%;
+    height: 100px;
+    background-size: 100%;
+  }
+  .in-house-player {
+    padding: none;
+    width: 30px;
+    height: 40px;
+    margin-left: 5px;
+  }
 }

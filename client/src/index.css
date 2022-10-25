@@ -355,6 +355,13 @@ textarea {
   width: 30px;
   border-radius: 10px;
 }
+.no-content {
+  color: rgb(80, 24, 24);
+  background-color: #d3f5d2;
+  padding: 5px;
+  height: 20%;
+  border-radius: 5px;
+}
 @media screen and (max-width: 980px) {
 }
 @media screen and (max-width: 817px) {

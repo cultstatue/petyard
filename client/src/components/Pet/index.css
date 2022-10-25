@@ -1,10 +1,36 @@
-.praises {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 .praise {
   background-color: var(--secondary);
   width: 75%;
   border-radius: 15px;
+}
+.pet-facts {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 20px;
+}
+.pet-facts ul {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  align-content: flex-start;
+}
+.pet-facts li {
+  font-size: large;
+  margin: 5px;
+  background-color: var(--secondary);
+  border-radius: 15px;
+  padding: 10px;
+  width: fit-content;
+}
+#name {
+  border-bottom: solid 3px var(--secondary);
+  color: var(--secondary);
+}
+#treat-btn {
+  background-color: var(--primary);
+}
+.highlight {
+  color: rgb(21, 159, 245);
 }
