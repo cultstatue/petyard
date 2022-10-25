@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Form, Button, Col, Row } from "react-bootstrap";
+import { Form, Button, Col, Row, Container } from "react-bootstrap";
+import "./index.css";
 
 import { useMutation } from "@apollo/client";
 import { ADD_PET } from "../../utils/mutations";
@@ -67,8 +68,13 @@ function CreatePet() {
 
   return (
     <>
-      <Row className="justify-content-md-center">
-        <Col lg className="m-4">
+    <Container fluid>
+      <Row>
+       
+        
+        <Col>
+        <div classname="form-container">
+          <h1> Add a Pet! </h1>
           <Form noValidate validated={validated} onSubmit={formHandler}>
             <Form.Group className="mb-3" controlId="formPetName">
               <Form.Label>Pet's name</Form.Label>
@@ -169,8 +175,10 @@ function CreatePet() {
               Create!
             </Button>
           </Form>
+          </div>
         </Col>
       </Row>
+      </Container>
     </>
   );
 }

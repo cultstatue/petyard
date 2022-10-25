@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
 /* Setting margins for the main page */
 main {
   margin: 0 auto;
@@ -36,7 +38,7 @@ body {
   /* Background colors for the page */
   background: var(--dark);
   color: var(--light);
-  font-family: "times", "Times New Roman", Times, serif;
+  font-family: "Helvetica";
 }
 
 /* Setting style for the headers h1-6 */
@@ -46,12 +48,14 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Times New Roman";
+  font-family: "Helvetica";
   font-weight: 450;
   margin: auto;
 }
 
 h1 {
+  font-family: 'Fredoka One', cursive;
+
   font-size: 2.25rem;
 }
 
