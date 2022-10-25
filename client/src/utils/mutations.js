@@ -114,3 +114,10 @@ export const ADD_PET = gql`
     }
   }
 `;
+export const ADD_PRAISE = gql`
+  mutation AddPraise($petId: ID!) {
+    addPraise(petId: $petId) {
+      _id
+    }
+  }
+`;
