@@ -95,7 +95,8 @@ a {
 }
 
 a:hover {
-  text-decoration: underline;
+  text-decoration: none;
+  color: var(--dark);
 }
 
 header {
@@ -359,6 +360,13 @@ textarea {
   width: 30px;
   border-radius: 10px;
 }
+
+.form-container {
+  background-color: beige;
+  color: black;
+  text-align: center;
+}
+
 @media screen and (max-width: 980px) {
 }
 @media screen and (max-width: 817px) {
