@@ -361,10 +361,20 @@ textarea {
   border-radius: 10px;
 }
 
+
 .form-container {
   background-color: beige;
   color: black;
   text-align: center;
+}
+
+
+.no-content {
+  color: rgb(80, 24, 24);
+  background-color: #d3f5d2;
+  padding: 5px;
+  height: 20%;
+  border-radius: 5px;
 }
 
 @media screen and (max-width: 980px) {

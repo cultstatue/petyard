@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { QUERY_USER, QUERY_OTHER_USER, QUERY_PETS } from "../../utils/queries";
 import { useQuery, useMutation } from "@apollo/client";
 import { Card, Button } from "react-bootstrap";
 import Pet from "../Pet";
 import "./index.css";
-import { ADD_COMMENT, DELETE_COMMENT } from "../../utils/mutations";
+import { ADD_COMMENT, DELETE_COMMENT, ADD_PRAISE } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 const Profile = () => {
   const [currentPet, setPet] = useState("");
+  const [addPraise, { error: praiseError }] = useMutation(ADD_PRAISE);
+  const [numPraise, setNumPraise] = useState(null);
 
   // Comment initializing
   const [commentText, setComment] = useState("");
@@ -19,7 +21,7 @@ const Profile = () => {
   //getting url parameter
   const { username: userParam } = useParams();
 
-  const { loading, data } = useQuery(
+  const { loading, data, refetch } = useQuery(
     userParam ? QUERY_OTHER_USER : QUERY_USER,
     {
       variables: { username: userParam },
@@ -27,7 +29,8 @@ const Profile = () => {
   );
 
   const { loading: petLoading, data: petData } = useQuery(QUERY_PETS);
-  const user = data?.user || data?.otherUser || {};
+  const [user, setUser] = useState(data?.user || data?.otherUser || {});
+  // const user = data?.user || data?.otherUser || {};
   // console.log(user.status);
   const pets = petData?.pets || {};
   const statusId = user?.status?._id || "1234";
@@ -54,6 +57,24 @@ const Profile = () => {
   if (petLoading) {
     return <div> loading</div>;
   }
+
+  const handleTreatSubmit = async (event) => {
+    console.log("in handleSubmit");
+    event.preventDefault();
+    console.log("trying to add praise");
+    try {
+      await addPraise({
+        variables: { petId: currentPet },
+      });
+      await refetch(userParam ? QUERY_OTHER_USER : QUERY_USER, {
+        variables: { username: userParam },
+      });
+      setUser(data?.user || data?.otherUser || {});
+    } catch (e) {
+      console.error(e);
+    }
+    console.log("done");
+  };
   // console.log(user.status._id);
   //handle comment data
   const handleChange = (event) => {
@@ -102,16 +123,22 @@ const Profile = () => {
     return finalPet;
   }
 
+  // useEffect(() => {
+  //   const response = useQuery(QUERY_USER);
+  // });
+
   return (
     <>
       {loading ? (
         <div>Loading...</div>
       ) : (
         <>
-          <h1 className="profile-title">
-            Welcome to {userParam ? `${user.username}'s` : "your"} home.
-          </h1>
+          {" "}
           <div className="profile-page">
+            <h1 className="profile-title">
+              Welcome to {userParam ? `${user.username}'s` : "your"} home.
+            </h1>
+
             <div className="container house">
               <div className="pets">
                 {user.pets.map((pet, index) => (
@@ -154,6 +181,9 @@ const Profile = () => {
                       praises={pet.praises}
                     />
                   ))}
+                  <button id="treat-btn" onClick={handleTreatSubmit}>
+                    Give Treat!
+                  </button>
                 </>
               ) : (
                 <>
@@ -220,7 +250,7 @@ const Profile = () => {
                 )}
               </div>
             ) : (
-              <div>There are no comments yet!</div>
+              <div className="no-content">There are no comments yet...</div>
             )}
           </div>
         </>
