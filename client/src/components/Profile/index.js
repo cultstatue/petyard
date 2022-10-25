@@ -15,8 +15,6 @@ const Profile = () => {
   // Comment initializing
   const [commentText, setComment] = useState("");
   const [addComment, { error }] = useMutation(ADD_COMMENT);
-  const [deleteComment, { error: deleteError }] = useMutation(DELETE_COMMENT);
-  const [commentId, getCommentId] = useState("");
 
   //getting url parameter
   const { username: userParam } = useParams();
@@ -100,17 +98,6 @@ const Profile = () => {
       }
     }
   };
-  const handleDeleteButton = async (event) => {
-    event.preventDefault();
-
-    // try {
-    //   await deleteComment({
-    //     variables: { commentId, statusId },
-    //   });
-    // } catch (e) {
-    //   console.error(e);
-    // }
-  };
 
   function filterPet() {
     // console.log(currentPet);
@@ -140,22 +127,31 @@ const Profile = () => {
             </h1>
 
             <div className="container house">
-              <div className="pets">
-                {user.pets.map((pet, index) => (
-                  <button
-                    key={pet._id + index.toString()}
-                    onClick={() => {
-                      setPet(pet._id);
-                    }}
-                  >
-                    <img
-                      className="pet"
-                      src={`/images/${pet.image}`}
-                      alt="animal profile image"
-                    ></img>
-                  </button>
-                ))}
-              </div>
+              {user.pets ? (
+                <>
+                  {" "}
+                  <div className="pets">
+                    {user.pets.map((pet, index) => (
+                      <button
+                        key={pet._id + index.toString()}
+                        onClick={() => {
+                          setPet(pet._id);
+                        }}
+                      >
+                        <img
+                          className="pet"
+                          src={`/images/${pet.image}`}
+                          alt="animal profile image"
+                        ></img>
+                      </button>
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <>
+                  <p>No pets for this user...</p>
+                </>
+              )}
 
               <div className="char">
                 {" "}
@@ -225,10 +221,10 @@ const Profile = () => {
               </>
             )}
 
-            {user.status.comments != 0 ? (
+            {user.status ? (
               <div className="comments">
                 <h3>{user.username}'s Comments</h3>
-                {user.status.comments ? (
+                {user.status.comments != 0 ? (
                   user.status.comments.map((comment, index) => (
                     <div
                       className="comment"
@@ -239,9 +235,6 @@ const Profile = () => {
                           <Card.Title>{comment.commentText}</Card.Title>
                           <Card.Text>Written by {comment.username}</Card.Text>
                         </Card.Body>
-                        {/* <Button variant="danger" onSubmit={handleDeleteButton}>
-                          Delete Comment
-                        </Button> */}
                       </Card>
                     </div>
                   ))
