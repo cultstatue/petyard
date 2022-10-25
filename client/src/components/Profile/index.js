@@ -183,11 +183,11 @@ const Profile = () => {
               </>
             ) : (
               <>
-                <div>Loading Status</div>
+                <div>No status yet!</div>
               </>
             )}
 
-            {user.comments ? (
+            {user.status ? (
               <div className="comments">
                 <h3>{user.username}'s Comments</h3>
                 {user.status.comments ? (

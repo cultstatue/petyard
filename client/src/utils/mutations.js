@@ -1,8 +1,18 @@
 import { gql } from "@apollo/client";
 
 export const ADD_USER = gql`
-  mutation addUser($username: String!, $email: String!, $password: String!) {
-    addUser(username: $username, email: $email, password: $password) {
+  mutation addUser(
+    $username: String!
+    $email: String!
+    $password: String!
+    $profile_img: String!
+  ) {
+    addUser(
+      username: $username
+      email: $email
+      password: $password
+      profile_img: $profile_img
+    ) {
       token
       user {
         _id
@@ -62,9 +72,6 @@ export const UPDATE_STATUS = gql`
   }
 `;
 
-
-
-
 export const ADD_STATUS = gql`
   mutation AddStatus($statusText: String!) {
     addStatus(statusText: $statusText) {
@@ -80,16 +87,30 @@ export const ADD_STATUS = gql`
   }
 `;
 
-export const ADD_PET = gql `
-mutation addPet($name: String!, $breed: String!, $age: Int, $gender: String, $image: String!, $species: String!) {
-  addPet(name: $name, breed: $breed, age: $age, gender: $gender, image: $image, species: $species) {
-    _id
-    name
-    breed
-    age
-    gender
-    image
-    species
+export const ADD_PET = gql`
+  mutation addPet(
+    $name: String!
+    $breed: String!
+    $age: Int
+    $gender: String
+    $image: String!
+    $species: String!
+  ) {
+    addPet(
+      name: $name
+      breed: $breed
+      age: $age
+      gender: $gender
+      image: $image
+      species: $species
+    ) {
+      _id
+      name
+      breed
+      age
+      gender
+      image
+      species
+    }
   }
-}
-`
+`;
