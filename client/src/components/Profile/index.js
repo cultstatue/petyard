@@ -111,8 +111,9 @@ const Profile = () => {
     if (!currentPet) {
       return user.pets;
     }
-    // console.log(pets);
-    const finalPet = pets.filter((pet) => pet._id === currentPet);
+    console.log(pets);
+    console.log(currentPet);
+    const finalPet = pets.pets.filter((pet) => pet._id === currentPet);
     // console.log(finalPet);
     return finalPet;
   }
