@@ -197,7 +197,7 @@ const Profile = () => {
             </div>
           </div>
           <div className="comment-section">
-            {user.status ? (
+            {user.status != null ? (
               <>
                 <div className="comment-text">
                   <h1>Leave a comment on their page!</h1>
@@ -221,7 +221,7 @@ const Profile = () => {
               </>
             )}
 
-            {user.status ? (
+            {user.status != null ? (
               <div className="comments">
                 <h3>{user.username}'s Comments</h3>
                 {user.status.comments != 0 ? (
