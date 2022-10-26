@@ -5,6 +5,7 @@ import "./index.css";
 import { useMutation } from "@apollo/client";
 import { ADD_PET } from "../../utils/mutations";
 import Auth from "../../utils/auth";
+import { useNavigate } from "react-router-dom";
 
 function CreatePet() {
   const [petFormData, setPetFormData] = useState({
@@ -15,7 +16,7 @@ function CreatePet() {
     breed: "",
     image: "cat.gif",
   });
-
+  let navigate = useNavigate();
   const [validated, setValidated] = useState(false);
 
   const [addPet, { error }] = useMutation(ADD_PET);
@@ -64,7 +65,10 @@ function CreatePet() {
       image: "cat.gif",
     });
     //This has some issues
-    window.location.redirect("/profile");
+
+    navigate("/profile");
+
+    // window.location.replace("/profile");
   };
 
   return (
@@ -72,7 +76,7 @@ function CreatePet() {
       <Container fluid>
         <Row>
           <Col>
-            <div classname="form-container">
+            <div className="form-container">
               <h1> Add a Pet! </h1>
               <Form noValidate validated={validated} onSubmit={formHandler}>
                 <Form.Group className="mb-3" controlId="formPetName">

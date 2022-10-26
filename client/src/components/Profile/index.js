@@ -18,21 +18,28 @@ const Profile = () => {
 
   //getting url parameter
   const { username: userParam } = useParams();
-
+  console.log(userParam);
   const { loading, data, refetch } = useQuery(
     userParam ? QUERY_OTHER_USER : QUERY_USER,
     {
       variables: { username: userParam },
     }
   );
-
+  console.log(data);
+  const [pets, setPets] = useState("");
+  const [user, setUser] = useState("");
   const { loading: petLoading, data: petData } = useQuery(QUERY_PETS);
-  const [user, setUser] = useState(data?.user || data?.otherUser || {});
+  useEffect(() => {
+    setUser(data?.user || data?.otherUser || {});
+    setPets(petData);
+  });
+  console.log(user);
+
   // const user = data?.user || data?.otherUser || {};
   // console.log(user.status);
-  const pets = petData?.pets || {};
-  const statusId = user?.status?._id || "1234";
+  // const pets = petData?.pets || {};
 
+  const statusId = user?.status?._id || "1234";
   //navigate to personal profile page if username is the logged-in user's
   if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
     return <Navigate to="/profile" />;
