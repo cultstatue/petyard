@@ -19,6 +19,9 @@ Online social network blog for you and your pet. Post your pet's favorite things
 ## Test
 - Use `npn run test` to run the tests
 
+## Screenshot
+![Screenshot](/client/src/Assets/Screenshot/screenshot.png)
+
 ## Contributors
 - [Malick BA](https://github.com/malickbax)
 - [Claire CASHMORE](https://github.com/clairecashmore17)
