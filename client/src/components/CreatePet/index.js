@@ -66,7 +66,7 @@ function CreatePet() {
     });
     //This has some issues
 
-    navigate("/profile");
+    navigate("/profile", { replace: true });
 
     // window.location.replace("/profile");
   };
