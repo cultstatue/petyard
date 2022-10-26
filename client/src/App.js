@@ -54,7 +54,7 @@ function App() {
               <Route path="" element={<Profile />} />
             </Route>
             <Route path="/addpet" element={<CreatePet />} />
-            <Route path="/contact" element={<Contact />} />
+            {/* <Route path="/contact" element={<Contact />} /> */}
           </Routes>
           <Footer />
         </div>
