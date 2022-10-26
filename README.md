@@ -20,7 +20,7 @@ Online social network blog for you and your pet. Post your pet's favorite things
 - Use `npn run test` to run the tests
 
 ## Screenshot
-(./client/src/Assets/Screenshot/Screenshot%20.png)
+![Screenshot](/client/src/Assets/Screenshot/screenshot.png)
 
 ## Contributors
 - [Malick BA](https://github.com/malickbax)
